@@ -1,18 +1,18 @@
 /* global bp */
 
-var startEvent = bp.Event("startShower");
+var startEvent = bp.Event("startEvent");
 var coldEvent = bp.Event("coldEvent");
 var hotEvent  = bp.Event("hotEvent");
 
 bp.registerBThread("HotBt", function() {
-    bsync({waitfor:startEvent});
+    bsync({waitFor:startEvent});
     for (var i = 0; i < 10; i++) {
         bsync({request:hotEvent});
     }
 });
 
 bp.registerBThread("ColdBt", function() {
-    bsync({waitfor:startEvent});
+    bsync({waitFor:startEvent});
 
     for (var i = 0; i < 10; i++) {
         bsync({request:coldEvent});
