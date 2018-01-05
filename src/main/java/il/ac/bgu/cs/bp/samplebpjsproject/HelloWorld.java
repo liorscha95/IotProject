@@ -14,21 +14,20 @@ import il.ac.bgu.cs.bp.bpjs.events.BEvent;
 public class HelloWorld {
     
     public static void main(String[] args) throws InterruptedException {
+        // Init UI handler
+        UiHandler handler = new UiHandler();
+        handler.init();
+
         // load resource file..
         BProgram bprog = new SingleResourceBProgram("HotNCold.js");
         // configure the program to the runner thread.
         BProgramRunner sut = new BProgramRunner(bprog);
 
-        sut.addListener(new PrintBProgramRunnerListener());
+        sut.addListener(new UiProgramListener(handler));
 
         InMemoryEventLoggingListener eventLogger = new InMemoryEventLoggingListener();
 
         sut.addListener(eventLogger);
-
-        // This will load the program file  <Project>/src/main/resources/HelloBPjsWorld.js
-        //BProgramRunner bpr = new BProgramRunner(new SingleResourceBProgram("HotNCold.js"));
-
-        //bpr.addListener( new PrintBProgramRunnerListener() );
 
         new Thread(() -> {
             sut.getBProgram().enqueueExternalEvent(BEvent.named("startEvent"));
