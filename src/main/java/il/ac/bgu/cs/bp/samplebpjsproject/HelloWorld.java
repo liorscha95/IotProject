@@ -9,10 +9,11 @@ import il.ac.bgu.cs.bp.bpjs.events.BEvent;
 
 /**
  * Simple class running a BPjs program that selects "hello world" events.
+ *
  * @author michael
  */
 public class HelloWorld {
-    
+
     public static void main(String[] args) throws InterruptedException {
         // Init UI handler
         UiHandler handler = new UiHandler();
@@ -27,10 +28,16 @@ public class HelloWorld {
 
         InMemoryEventLoggingListener eventLogger = new InMemoryEventLoggingListener();
 
-        sut.addListener(eventLogger);
+        sut.addListener(new PrintBProgramRunnerListener());
 
         new Thread(() -> {
-            sut.getBProgram().enqueueExternalEvent(BEvent.named("startEvent"));
+            sut.getBProgram().enqueueExternalEvent(BEvent.named("michaelEvent"));
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            sut.getBProgram().enqueueExternalEvent(BEvent.named("endOfShowerEvent"));
         }).start();
 
         // We don't want the program to stop when there are no more events to trigger.
@@ -39,5 +46,5 @@ public class HelloWorld {
 
         sut.start();
     }
-    
+
 }
