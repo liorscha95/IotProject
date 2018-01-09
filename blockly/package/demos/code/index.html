@@ -14,7 +14,8 @@
   <script src="../../lua_compressed.js"></script>
   <script src="../../dart_compressed.js"></script>
   <script src="code.js"></script>
-  <script src="blocks.js"></script>
+  <script src="blockDefinitions.js"></script>
+  <script src="codeGenerators.js"></script>
 </head>
 <body>
   <table width="100%" height="100%">
@@ -75,12 +76,10 @@
   <textarea id="content_xml" class="content" wrap="off"></textarea>
 
   <xml id="toolbox" style="display: none">
-    <category name="Text">
-      <block type="setpeople"></block>
-    </category>
-    <category name="Text">
+      <block type="sethouse"></block>
       <block type="manbehaviour"></block>
-    </category>
+      <block type="showertask"></block>
+      <block type="coffeetask"></block>
   </xml>
 
 </body>
