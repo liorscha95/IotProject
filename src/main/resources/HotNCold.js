@@ -1,9 +1,9 @@
 /* global bp */
-var requestShowerES = bp.EventSet( "shower requests", function(evt) {
+var requestShowerES = bp.EventSet("shower requests", function (evt) {
     return evt.name.indexOf("RequestShower") >= 0;
 });
 
-var requestCofeeES = bp.EventSet( "coffee requests", function(evt) {
+var requestCofeeES = bp.EventSet("coffee requests", function (evt) {
     return evt.name.indexOf("requestCofee") >= 0;
 });
 
