@@ -1,4 +1,4 @@
-Blockly.JavaScript['sethouse'] = function(block) {
+Blockly.JavaScript['sethouse'] = function (block) {
     var statements_persontasks = Blockly.JavaScript.statementToCode(block, 'PersonTasks');
     var code = 'var requestShowerES = bp.EventSet("shower requests", function (evt) {\n' +
         '    return evt.name.indexOf("RequestShower") >= 0;\n' +
@@ -38,44 +38,76 @@ Blockly.JavaScript['sethouse'] = function(block) {
     return code + statements_persontasks;
 };
 
-Blockly.JavaScript['manbehaviour'] = function(block) {
-  var dropdown_person_name = block.getFieldValue('person_name');
-  var statements_personcode = Blockly.JavaScript.statementToCode(block, 'personCode');
-  // TODO: Assemble JavaScript into code variable.
-  var code = '...;\n';
-  return code;
+Blockly.JavaScript['manbehaviour'] = function (block) {
+    var person_name = block.getFieldValue('person_name');
+    var statements_personcode = Blockly.JavaScript.statementToCode(block, 'personCode');
+
+    var code = statements_personcode.replace(/%NAME%/g, person_name);
+    return code;
 };
 
-Blockly.JavaScript['showertask'] = function(block) {
-  var number_cycles = block.getFieldValue('cycles');
-  var number_hot_quantity = block.getFieldValue('hot quantity');
-  var number_hot_quantity = block.getFieldValue('cold quantity');
+Blockly.JavaScript['showertask'] = function (block) {
+    var number_cycles = block.getFieldValue('cycles');
+    var number_hot_quantity = block.getFieldValue('hot quantity');
+    var number_cold_quantity = block.getFieldValue('cold quantity');
 
-  var events =
-      'var %NAME%Event = bp.Event("%NAME&Event");\n' +
-      'var %NAME%RequestShowerEvent = bp.Event("%NAME%RequestShowerEvent");\n';
+    var events =
+        'var %NAME%Event = bp.Event("%NAME%Event");\n' +
+        'var %NAME%RequestShowerEvent = bp.Event("%NAME%RequestShowerEvent");\n';
 
-  var personRequestShowerBthread =
-      'bp.registerBThread("%NAME%RequestShower", function () {\n' +
-      '    bsync({waitFor: %NAME%Event});\n' +
-      '    bsync({request: %NAME%RequestShowerEvent});\n' +
-      '});\n';
+    var personRequestShowerBthread =
+        'bp.registerBThread("%NAME%RequestShower", function () {\n' +
+        '    bsync({waitFor: %NAME%Event});\n' +
+        '    bsync({request: %NAME%RequestShowerEvent});\n' +
+        '});\n';
 
-    var waitForColdBlockHot = 'bsync({waitFor: coldEvent, block: hotEvent});\n';
-    var waitForHotBlockCold = 'bsync({waitFor: hotEvent, block: coldEvent});\n';
+    var waitForColdBlockHot =
+        '        bsync({waitFor: coldEvent, block: hotEvent});\n';
+    var waitForHotBlockCold =
+        '        bsync({waitFor: hotEvent, block: coldEvent});\n';
 
     var personShowerAlternator =
         'bp.registerBThread("%NAME%ShowerAlternator", function () {\n' +
         '    bsync({waitFor: %NAME%RequestShowerEvent});\n' +
-        `    for (var i = 0; i < ${number_cycles}; i++) {\n`;
+        `    for (var i = 0; i < ${number_cycles}; i++) {\n` +
+        waitForColdBlockHot.repeat(number_cold_quantity) +
+        waitForHotBlockCold.repeat(number_hot_quantity) +
+        '    }\n' +
+        '    bsync({waitFor: endOfShowerEvent});\n' +
+        '    bsync({request: emptyShowerEvent});\n' +
+        '});';
 
-    var code = '...;\n';
-  return code;
+    var personHotShower =
+        'bp.registerBThread("%NAME%HotShower", function () {\n' +
+        '    bsync({waitFor: %NAME%RequestShowerEvent});\n' +
+        `    for (var i = 0; i < ${number_cycles} * ${number_hot_quantity}; i++) {\n` +
+        '        bsync({request: hotEvent});\n' +
+        '        // bsync({waitFor: finishHotEvent});\n' +
+        '    }\n' +
+        '});\n';
+
+    var personColdShower =
+        'bp.registerBThread("%NAME%ColdShower", function () {\n' +
+        '    bsync({waitFor: %NAME%RequestShowerEvent});\n' +
+        `    for (var i = 0; i < ${number_cycles} * ${number_cold_quantity}; i++) {\n` +
+        '        bsync({request: coldEvent});\n' +
+        '        // bsync({waitFor: finishHotEvent});\n' +
+        '    }\n' +
+        '});\n';
+
+
+    var code =
+        events +
+        personRequestShowerBthread +
+        personShowerAlternator +
+        personHotShower +
+        personColdShower;
+    return code;
 };
 
-Blockly.JavaScript['coffeetask'] = function(block) {
-  var dropdown_coffe_type = block.getFieldValue('coffe type');
-  // TODO: Assemble JavaScript into code variable.
-  var code = '...;\n';
-  return code;
+Blockly.JavaScript['coffeetask'] = function (block) {
+    var dropdown_coffe_type = block.getFieldValue('coffe type');
+    // TODO: Assemble JavaScript into code variable.
+    var code = '...;\n';
+    return code;
 };
