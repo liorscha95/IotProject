@@ -50,8 +50,26 @@ Blockly.JavaScript['showertask'] = function(block) {
   var number_cycles = block.getFieldValue('cycles');
   var number_hot_quantity = block.getFieldValue('hot quantity');
   var number_hot_quantity = block.getFieldValue('cold quantity');
-  // TODO: Assemble JavaScript into code variable.
-  var code = '...;\n';
+
+  var events =
+      'var %NAME%Event = bp.Event("%NAME&Event");\n' +
+      'var %NAME%RequestShowerEvent = bp.Event("%NAME%RequestShowerEvent");\n';
+
+  var personRequestShowerBthread =
+      'bp.registerBThread("%NAME%RequestShower", function () {\n' +
+      '    bsync({waitFor: %NAME%Event});\n' +
+      '    bsync({request: %NAME%RequestShowerEvent});\n' +
+      '});\n';
+
+    var waitForColdBlockHot = 'bsync({waitFor: coldEvent, block: hotEvent});\n';
+    var waitForHotBlockCold = 'bsync({waitFor: hotEvent, block: coldEvent});\n';
+
+    var personShowerAlternator =
+        'bp.registerBThread("%NAME%ShowerAlternator", function () {\n' +
+        '    bsync({waitFor: %NAME%RequestShowerEvent});\n' +
+        `    for (var i = 0; i < ${number_cycles}; i++) {\n`;
+
+    var code = '...;\n';
   return code;
 };
 

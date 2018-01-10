@@ -38,19 +38,13 @@ bp.registerBThread("blockCofee", function () {
 //Specific to Michael functions and events
 var michaelEvent = bp.Event("michaelEvent");
 var michaelRequestShowerEvent = bp.Event("michaelRequestShowerEvent");
-var michaelChosenCofeeEvent = requestDarkCofeeEvent;
 var waterIterations = 2;
 var hotQuantity = 3;
 var coldQuantity = 1;
 
-bp.registerBThread("MichaelShower", function () {
+bp.registerBThread("MichaelRequestShower", function () {
     bsync({waitFor: michaelEvent});
     bsync({request: michaelRequestShowerEvent});
-});
-
-bp.registerBThread("MichaelCofee", function () {
-    bsync({waitFor: michaelEvent});
-    bsync({request: michaelChosenCofeeEvent});
 });
 
 bp.registerBThread("MichaelShowerAlternator", function () {
@@ -80,4 +74,10 @@ bp.registerBThread("MichaelColdShower", function () {
         bsync({request: coldEvent});
         // bsync({waitFor: finishColdEvent});
     }
+});
+
+var michaelChosenCofeeEvent = requestDarkCofeeEvent;
+bp.registerBThread("MichaelCofee", function () {
+    bsync({waitFor: michaelEvent});
+    bsync({request: michaelChosenCofeeEvent});
 });
