@@ -102,7 +102,7 @@ Blockly.JavaScript['showertask'] = function (block) {
         personRequestShowerBthread +
         personShowerAlternator +
         personHotShower +
-        personColdShower + '\n';
+        personColdShower + '\n\n';
     return code;
 };
 
@@ -113,6 +113,6 @@ Blockly.JavaScript['coffeetask'] = function (block) {
         'bp.registerBThread("%NAME%Coffee", function () {\n' +
         '    bsync({waitFor: %NAME%Event});\n' +
         '    bsync({request: %NAME%ChosenCoffeeEvent});\n' +
-        '});\n';
+        '});\n\n';
     return code;
 };
