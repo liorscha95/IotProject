@@ -1,11 +1,12 @@
 Blockly.JavaScript['sethouse'] = function (block) {
     var statements_persontasks = Blockly.JavaScript.statementToCode(block, 'PersonTasks');
-    var code = 'var requestShowerES = bp.EventSet("shower requests", function (evt) {\n' +
+    var code =
+        'var requestShowerES = bp.EventSet("shower requests", function (evt) {\n' +
         '    return evt.name.indexOf("RequestShower") >= 0;\n' +
         '});\n' +
         '\n' +
-        'var requestCofeeES = bp.EventSet("coffee requests", function (evt) {\n' +
-        '    return evt.name.indexOf("requestCofee") >= 0;\n' +
+        'var requestCoffeeES = bp.EventSet("coffee requests", function (evt) {\n' +
+        '    return evt.name.indexOf("requestCoffee") >= 0;\n' +
         '});\n' +
         '\n' +
         'var emptyShowerEvent = bp.Event("emptyShowerEvent");\n' +
@@ -17,11 +18,11 @@ Blockly.JavaScript['sethouse'] = function (block) {
         'var hotEvent = bp.Event("hotEvent");\n' +
         'var finishHotEvent = bp.Event("finishHotEvent");\n' +
         '\n' +
-        'var requestDarkCofeeEvent = bp.Event("requestCoffeeDarkEvent");\n' +
-        'var requestCapuccinoEvent = bp.Event("requestCoffeeCapuccinoEvent");\n' +
-        'var finishCofeeEvent = bp.Event("finishCofeeEvent");\n' +
+        'var requestCoffeeDarkEvent = bp.Event("requestCoffeeDarkEvent");\n' +
+        'var requestCoffeeCappuccinoEvent = bp.Event("requestCoffeeCappuccinoEvent");\n' +
+        'var requestCoffeeNescafeEvent = bp.Event("requestCoffeeNescafeEvent");\n' +
+        'var finishCoffeeEvent = bp.Event("finishCoffeeEvent");\n' +
         '\n' +
-        '// Global functions and events\n' +
         'bp.registerBThread("blockShower", function () {\n' +
         '    while (true) {\n' +
         '        bsync({waitFor: requestShowerES});\n' +
@@ -31,11 +32,11 @@ Blockly.JavaScript['sethouse'] = function (block) {
         '\n' +
         'bp.registerBThread("blockCoffee", function () {\n' +
         '    while (true) {\n' +
-        '        bsync({waitFor: requestCofeeES});\n' +
-        '        bsync({waitFor: finishCofeeEvent, block: requestCofeeES});\n' +
+        '        bsync({waitFor: requestCoffeeES});\n' +
+        '        bsync({waitFor: finishCoffeeEvent, block: requestCoffeeES});\n' +
         '    }\n' +
         '});\n';
-    return code + statements_persontasks;
+    return code + '\n' + statements_persontasks;
 };
 
 Blockly.JavaScript['manbehaviour'] = function (block) {
@@ -75,7 +76,7 @@ Blockly.JavaScript['showertask'] = function (block) {
         '    }\n' +
         '    bsync({waitFor: endOfShowerEvent});\n' +
         '    bsync({request: emptyShowerEvent});\n' +
-        '});';
+        '});\n';
 
     var personHotShower =
         'bp.registerBThread("%NAME%HotShower", function () {\n' +
@@ -101,13 +102,17 @@ Blockly.JavaScript['showertask'] = function (block) {
         personRequestShowerBthread +
         personShowerAlternator +
         personHotShower +
-        personColdShower;
+        personColdShower + '\n';
     return code;
 };
 
 Blockly.JavaScript['coffeetask'] = function (block) {
-    var dropdown_coffe_type = block.getFieldValue('coffe type');
-    // TODO: Assemble JavaScript into code variable.
-    var code = '...;\n';
+    var coffe_type = block.getFieldValue('coffe type');
+
+    var code = `var %NAME%ChosenCoffeeEvent = requestCoffee${coffe_type}Event;\n` +
+        'bp.registerBThread("%NAME%Coffee", function () {\n' +
+        '    bsync({waitFor: %NAME%Event});\n' +
+        '    bsync({request: %NAME%ChosenCoffeeEvent});\n' +
+        '});\n';
     return code;
 };

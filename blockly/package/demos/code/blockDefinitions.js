@@ -18,7 +18,7 @@ Blockly.Blocks['manbehaviour'] = {
     this.appendStatementInput("personCode")
         .setCheck(["ShowerTask", "CoffeeTask"])
         .appendField("When")
-        .appendField(new Blockly.FieldDropdown([["Michael","michael"], ["Daniel","Daniel"], ["Ruti","OPTIONNAME"]]), "person_name")
+        .appendField(new Blockly.FieldDropdown([["Michael","michael"], ["Daniel","daniel"], ["Ruti","ruti"]]), "person_name")
         .appendField("Enters");
     this.setPreviousStatement(true, "PeopleBehaviour");
     this.setNextStatement(true, "PeopleBehaviour");
@@ -58,7 +58,7 @@ Blockly.Blocks['coffeetask'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("Make")
-        .appendField(new Blockly.FieldDropdown([["Dark","dark"], ["Cappuccino","cappuccino"], ["Nescafe","nescafe"]]), "coffe type")
+        .appendField(new Blockly.FieldDropdown([["Dark","Dark"], ["Cappuccino","Cappuccino"], ["Nescafe","Nescafe"]]), "coffe type")
         .appendField("Coffee");
     this.setPreviousStatement(true, "CoffeeTask");
     this.setColour(30);
