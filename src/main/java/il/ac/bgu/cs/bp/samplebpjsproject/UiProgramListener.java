@@ -49,12 +49,21 @@ public class UiProgramListener implements BProgramRunnerListener {
 
     @Override
     public void eventSelected(BProgram bProgram, BEvent bEvent) {
-        switch(bEvent.getName()){
+        switch (bEvent.getName()) {
             case "coldEvent":
                 this.uiHandler.dripCold();
                 break;
             case "hotEvent":
                 this.uiHandler.dripHot();
+                break;
+            case "requestCoffeeDarkEvent":
+                this.uiHandler.pourCoffee("Dark");
+                break;
+            case "requestCoffeeCappuccinoEvent":
+                this.uiHandler.pourCoffee("Cappuccino");
+                break;
+            case "requestCoffeeNescafeEvent":
+                this.uiHandler.pourCoffee("Nescafe");
                 break;
         }
     }

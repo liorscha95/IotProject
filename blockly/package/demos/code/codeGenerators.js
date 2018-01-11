@@ -83,7 +83,7 @@ Blockly.JavaScript['showertask'] = function (block) {
         '    bsync({waitFor: %NAME%RequestShowerEvent});\n' +
         `    for (var i = 0; i < ${number_cycles} * ${number_hot_quantity}; i++) {\n` +
         '        bsync({request: hotEvent});\n' +
-        '        // bsync({waitFor: finishHotEvent});\n' +
+        '        bsync({waitFor: finishHotEvent});\n' +
         '    }\n' +
         '});\n';
 
@@ -92,7 +92,7 @@ Blockly.JavaScript['showertask'] = function (block) {
         '    bsync({waitFor: %NAME%RequestShowerEvent});\n' +
         `    for (var i = 0; i < ${number_cycles} * ${number_cold_quantity}; i++) {\n` +
         '        bsync({request: coldEvent});\n' +
-        '        // bsync({waitFor: finishHotEvent});\n' +
+        '        bsync({waitFor: finishHotEvent});\n' +
         '    }\n' +
         '});\n';
 
