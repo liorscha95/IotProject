@@ -61,12 +61,12 @@ public class Panel {
 
 	private void buildCoffeeIcon() {
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon("src\\main\\resources\\coffee.png"));
+		lblNewLabel.setIcon(new ImageIcon(getClass().getResource("/coffee.png")));
 		lblNewLabel.setBounds(585, 20, 228, 143);
 		frame.getContentPane().add(lblNewLabel);
 		
 		JLabel showerIcon = new JLabel("");
-		showerIcon.setIcon(new ImageIcon("src\\main\\resources\\shower.png"));
+		showerIcon.setIcon(new ImageIcon(getClass().getResource("/shower.png")));
 		showerIcon.setBounds(300, 20, 228, 143);
 		frame.getContentPane().add(showerIcon);
 	}
