@@ -43,7 +43,9 @@ Blockly.JavaScript['manbehaviour'] = function (block) {
     var person_name = block.getFieldValue('person_name');
     var statements_personcode = Blockly.JavaScript.statementToCode(block, 'personCode');
 
-    var code = statements_personcode.replace(/%NAME%/g, person_name);
+    var personEvent = 'var %NAME%Event = bp.Event("%NAME%Event");\n';
+
+    var code = (personEvent + statements_personcode).replace(/%NAME%/g, person_name);
     return code;
 };
 
@@ -53,7 +55,6 @@ Blockly.JavaScript['showertask'] = function (block) {
     var number_cold_quantity = block.getFieldValue('cold quantity');
 
     var events =
-        'var %NAME%Event = bp.Event("%NAME%Event");\n' +
         'var %NAME%RequestShowerEvent = bp.Event("%NAME%RequestShowerEvent");\n';
 
     var personRequestShowerBthread =
@@ -63,9 +64,9 @@ Blockly.JavaScript['showertask'] = function (block) {
         '});\n';
 
     var waitForColdBlockHot =
-        '        bsync({waitFor: coldEvent, block: hotEvent});\n';
+        '        bsync({waitFor: finishColdEvent, block: hotEvent});\n';
     var waitForHotBlockCold =
-        '        bsync({waitFor: hotEvent, block: coldEvent});\n';
+        '        bsync({waitFor: finishHotEvent, block: coldEvent});\n';
 
     var personShowerAlternator =
         'bp.registerBThread("%NAME%ShowerAlternator", function () {\n' +
