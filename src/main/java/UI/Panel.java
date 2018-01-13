@@ -146,13 +146,13 @@ public class Panel {
 		int[] coffeeConPos = {531, 242, 99, 14};
 		new Labels(frame).buildLabel("Console:", 11, coffeeConPos);
 		
-		int[] DarkLabel = {552, 487, 57, 14};
+		int[] DarkLabel = {557, 487, 57, 14};
 		new Labels(frame).buildLabel("Dark", 11, DarkLabel);
 		
-		int[] CapuccinoLabel = {619, 487, 57, 14};
+		int[] CapuccinoLabel = {610, 487, 70, 14};
 		new Labels(frame).buildLabel("Cappuccino", 11, CapuccinoLabel);
 		
-		int[] NescafeLabel = {696, 487, 57, 14};
+		int[] NescafeLabel = {695, 487, 57, 14};
 		new Labels(frame).buildLabel("Nescafe", 11, NescafeLabel);
 		
 		int[] ColdLabel = {458, 487, 46, 14};

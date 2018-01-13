@@ -40,7 +40,7 @@ public class UiHandler {
 
     private void invokeLedAndInformFinish(String ledType, String finishEvent, int millis) {
         new Thread(() -> {
-            this.panel.invokeLed(ledType, 3000);
+            this.panel.invokeLed(ledType,millis);
             try {
                 Thread.sleep(millis);
             } catch (InterruptedException e) {
