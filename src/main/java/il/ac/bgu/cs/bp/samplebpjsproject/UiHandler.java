@@ -27,14 +27,17 @@ public class UiHandler {
     }
 
     public void dripCold() {
+        panel.writeToConsole("Adding one cycle of cold water","showerConsole");
         invokeLedAndInformFinish("ColdLed", "finishColdEvent", 3000);
     }
 
     public void dripHot() {
+        panel.writeToConsole("Adding one cycle of hot water","showerConsole");
         invokeLedAndInformFinish("HotLed", "finishHotEvent", 3000);
     }
 
     public void pourCoffee(String coffeeType) {
+        panel.writeToConsole(coffeeType + " in progress","coffeeConsole");
         invokeLedAndInformFinish(coffeeType + "Led", "finishCoffeeEvent", 10000);
     }
 
@@ -46,6 +49,8 @@ public class UiHandler {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            if (ledType.contains("Dark") || ledType.contains("Cappuccino") || ledType.contains("Nescafe"))
+                panel.writeToConsole("Coffee is ready, have a nice day." , "coffeeConsole");
             this.bProgramRunner.getBProgram().enqueueExternalEvent(BEvent.named(finishEvent));
         }).start();
     }

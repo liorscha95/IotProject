@@ -54,7 +54,7 @@ public class Panel {
 	}
 
 	private void buildConsoleBoxes() {
-		int[] showerPos = {256, 258, 265, 101};
+		int[] showerPos = {256, 258, 228, 101};
 		showerConsole = new Console("Shower", frame);
 		showerConsole.buildConsoleBox(showerPos);
 		int [] coffeePos = {531, 260, 228, 101};
