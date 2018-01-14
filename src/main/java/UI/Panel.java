@@ -86,17 +86,17 @@ public class Panel {
 		map.put("ColdLed", ColdLed);
 		
 		int[] darkPos = {530,420,76,72};
-		LedLighters Dakpanel = new LedLighters(frame,"Dark", Color.CYAN);
+		LedLighters Dakpanel = new LedLighters(frame,"Dark", Color.BLACK);
 		Dakpanel.buildLedLighter(darkPos);
 		map.put("DarkLed", Dakpanel);
 		
 		int[] capPos = {600,420,76,72};
-		LedLighters CappucinoPanel = new LedLighters(frame,"Cappuccino",Color.CYAN);
+		LedLighters CappucinoPanel = new LedLighters(frame,"Cappuccino",new Color(0x99,0x33,0));
 		CappucinoPanel.buildLedLighter(capPos);
 		map.put("CappuccinoLed", CappucinoPanel);
 		
 		int[] lattePos = {670,420,76,72};
-		LedLighters lattePanel = new LedLighters(frame,"Nescafe", Color.CYAN);
+		LedLighters lattePanel = new LedLighters(frame,"Nescafe", new Color(0x99,0x60,0x10));
 		lattePanel.buildLedLighter(lattePos);
 		map.put("NescafeLed", lattePanel);
 	}
