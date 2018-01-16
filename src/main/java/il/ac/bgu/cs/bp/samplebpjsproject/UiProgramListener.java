@@ -14,12 +14,10 @@ public class UiProgramListener implements BProgramRunnerListener {
 
     @Override
     public void starting(BProgram bProgram) {
-        this.uiHandler.manEntersRoom();
     }
 
     @Override
     public void started(BProgram bProgram) {
-        this.uiHandler.closeDoor();
     }
 
     @Override
@@ -29,7 +27,6 @@ public class UiProgramListener implements BProgramRunnerListener {
 
     @Override
     public void ended(BProgram bProgram) {
-        this.uiHandler.finish();
     }
 
     @Override

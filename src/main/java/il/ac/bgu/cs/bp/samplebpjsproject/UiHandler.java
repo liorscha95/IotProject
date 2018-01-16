@@ -14,18 +14,6 @@ public class UiHandler {
         this.bProgramRunner = bProgramRunner;
     }
 
-    public void manEntersRoom() {
-        // TODO
-    }
-
-    public void closeDoor() {
-        // TODO
-    }
-
-    public void finish() {
-        // TODO
-    }
-
     public void dripCold() {
         invokeLedAndInformFinish("ColdLed", "finishColdEvent", 3000, null);
     }
