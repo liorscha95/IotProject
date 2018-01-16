@@ -124,7 +124,7 @@ public class Panel {
 		
 		int[] emptyPostion = {250,150,250,70,18};
 		JButton emptyBtn = new Buttons(frame).
-				addButton("Empty Shower", emptyPostion);
+				addButton("End Bath", emptyPostion);
 		emptyBtn.addActionListener(new ButtonsEvents("endOfShowerEvent",this, this.bProgramRunner));
 		
 	}
@@ -185,6 +185,19 @@ public class Panel {
 			break;
 		default:
 			return;
+		}
+	}
+
+	public void clearConsole(String console){
+		switch(console) {
+			case "coffeeConsole":
+				coffeeConsole.clean();
+				break;
+			case "showerConsole":
+				showerConsole.clean();
+				break;
+			default:
+				return;
 		}
 	}
 }

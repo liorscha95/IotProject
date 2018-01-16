@@ -24,6 +24,10 @@ public class Console extends JTextArea {
 		frame.getContentPane().add(this);
 	}
 
+	public void clean(){
+		this.setText("");
+	}
+
 	public void write(String str) {
 		String content = this.getText();
 		int count = 0;

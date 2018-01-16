@@ -31,12 +31,10 @@ public class LedLighters extends JComponent {
 	}
 	
 	public void TurnOff(Graphics g) {
-		System.out.println("----- " + name + " is turning off ------"); 
 		g.drawOval(10, 0, 60, 60);
 	}
 	
 	public void TurnOn(Graphics g) {
-		System.out.println("----- " + name + " is turning on ------");
 		g.fillOval(10, 0, 60, 60);
 	}
 	

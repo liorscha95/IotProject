@@ -42,10 +42,9 @@ bp.registerBThread("michaelRequestShower", function () {
 });
 bp.registerBThread("michaelShowerAlternator", function () {
     bsync({waitFor: michaelRequestShowerEvent});
-    for (var i = 0; i < 5; i++) {
+    for (var i = 0; i < 2; i++) {
         bsync({waitFor: finishColdEvent, block: hotEvent});
-        bsync({waitFor: finishHotEvent, block: coldEvent});
-        bsync({waitFor: finishHotEvent, block: coldEvent});
+        bsync({waitFor: finishColdEvent, block: hotEvent});
         bsync({waitFor: finishHotEvent, block: coldEvent});
     }
     bsync({waitFor: endOfShowerEvent});
@@ -53,16 +52,16 @@ bp.registerBThread("michaelShowerAlternator", function () {
 });
 bp.registerBThread("michaelHotShower", function () {
     bsync({waitFor: michaelRequestShowerEvent});
-    for (var i = 0; i < 5 * 3; i++) {
+    for (var i = 0; i < 2 * 1; i++) {
         bsync({request: hotEvent});
         bsync({waitFor: finishHotEvent});
     }
 });
 bp.registerBThread("michaelColdShower", function () {
     bsync({waitFor: michaelRequestShowerEvent});
-    for (var i = 0; i < 5 * 1; i++) {
+    for (var i = 0; i < 2 * 2; i++) {
         bsync({request: coldEvent});
-        bsync({waitFor: finishHotEvent});
+        bsync({waitFor: finishColdEvent});
     }
 });
 
@@ -73,49 +72,47 @@ bp.registerBThread("michaelCoffee", function () {
     bsync({request: michaelChosenCoffeeEvent});
 });
 
-var rutiEvent = bp.Event("rutiEvent");
-var rutiRequestShowerEvent = bp.Event("rutiRequestShowerEvent");
-bp.registerBThread("rutiRequestShower", function () {
-    bsync({waitFor: rutiEvent});
-    bsync({request: rutiRequestShowerEvent});
+var danielEvent = bp.Event("danielEvent");
+var danielRequestShowerEvent = bp.Event("danielRequestShowerEvent");
+bp.registerBThread("danielRequestShower", function () {
+    bsync({waitFor: danielEvent});
+    bsync({request: danielRequestShowerEvent});
 });
-bp.registerBThread("rutiShowerAlternator", function () {
-    bsync({waitFor: rutiRequestShowerEvent});
-    for (var i = 0; i < 4; i++) {
-        bsync({waitFor: coldEvent, block: hotEvent});
-        bsync({waitFor: coldEvent, block: hotEvent});
-        bsync({waitFor: coldEvent, block: hotEvent});
-        bsync({waitFor: coldEvent, block: hotEvent});
-        bsync({waitFor: hotEvent, block: coldEvent});
+bp.registerBThread("danielShowerAlternator", function () {
+    bsync({waitFor: danielRequestShowerEvent});
+    for (var i = 0; i < 2; i++) {
+        bsync({waitFor: finishColdEvent, block: hotEvent});
+        bsync({waitFor: finishHotEvent, block: coldEvent});
+        bsync({waitFor: finishHotEvent, block: coldEvent});
     }
     bsync({waitFor: endOfShowerEvent});
     bsync({request: emptyShowerEvent});
 });
-bp.registerBThread("rutiHotShower", function () {
-    bsync({waitFor: rutiRequestShowerEvent});
-    for (var i = 0; i < 4 * 1; i++) {
+bp.registerBThread("danielHotShower", function () {
+    bsync({waitFor: danielRequestShowerEvent});
+    for (var i = 0; i < 2 * 2; i++) {
         bsync({request: hotEvent});
         bsync({waitFor: finishHotEvent});
     }
 });
-bp.registerBThread("rutiColdShower", function () {
-    bsync({waitFor: rutiRequestShowerEvent});
-    for (var i = 0; i < 4 * 4; i++) {
+bp.registerBThread("danielColdShower", function () {
+    bsync({waitFor: danielRequestShowerEvent});
+    for (var i = 0; i < 2 * 1; i++) {
         bsync({request: coldEvent});
-        bsync({waitFor: finishHotEvent});
+        bsync({waitFor: finishColdEvent});
     }
 });
 
 
-var rutiChosenCoffeeEvent = requestCoffeeCappuccinoEvent;
-bp.registerBThread("rutiCoffee", function () {
-    bsync({waitFor: rutiEvent});
-    bsync({request: rutiChosenCoffeeEvent});
-});
-
-var danielEvent = bp.Event("danielEvent");
-var danielChosenCoffeeEvent = requestCoffeeNescafeEvent;
+var danielChosenCoffeeEvent = requestCoffeeCappuccinoEvent;
 bp.registerBThread("danielCoffee", function () {
     bsync({waitFor: danielEvent});
     bsync({request: danielChosenCoffeeEvent});
+});
+
+var rutiEvent = bp.Event("rutiEvent");
+var rutiChosenCoffeeEvent = requestCoffeeDarkEvent;
+bp.registerBThread("rutiCoffee", function () {
+    bsync({waitFor: rutiEvent});
+    bsync({request: rutiChosenCoffeeEvent});
 });

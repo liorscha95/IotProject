@@ -27,30 +27,33 @@ public class UiHandler {
     }
 
     public void dripCold() {
-        panel.writeToConsole("Adding one cycle of cold water","showerConsole");
-        invokeLedAndInformFinish("ColdLed", "finishColdEvent", 3000);
+        invokeLedAndInformFinish("ColdLed", "finishColdEvent", 3000, null);
     }
 
     public void dripHot() {
-        panel.writeToConsole("Adding one cycle of hot water","showerConsole");
-        invokeLedAndInformFinish("HotLed", "finishHotEvent", 3000);
+        invokeLedAndInformFinish("HotLed", "finishHotEvent", 3000, null);
     }
 
     public void pourCoffee(String coffeeType) {
-        panel.writeToConsole(coffeeType + " in progress","coffeeConsole");
-        invokeLedAndInformFinish(coffeeType + "Led", "finishCoffeeEvent", 10000);
+        panel.writeToConsole(coffeeType + " in progress", "coffeeConsole");
+        Runnable printAtFinish = () -> {
+            panel.writeToConsole(coffeeType + " Is Ready!", "coffeeConsole");
+        };
+        invokeLedAndInformFinish(coffeeType + "Led", "finishCoffeeEvent", 5000, printAtFinish);
     }
 
-    private void invokeLedAndInformFinish(String ledType, String finishEvent, int millis) {
+    private void invokeLedAndInformFinish(String ledType, String finishEvent, int millis, Runnable atFinishCallback) {
         new Thread(() -> {
-            this.panel.invokeLed(ledType,millis);
+            this.panel.invokeLed(ledType, millis);
             try {
-                Thread.sleep(millis);
+                Thread.sleep(millis + 500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            if (ledType.contains("Dark") || ledType.contains("Cappuccino") || ledType.contains("Nescafe"))
-                panel.writeToConsole("Coffee is ready, have a nice day." , "coffeeConsole");
+            if (atFinishCallback != null) {
+                atFinishCallback.run();
+            }
+
             this.bProgramRunner.getBProgram().enqueueExternalEvent(BEvent.named(finishEvent));
         }).start();
     }
@@ -64,5 +67,13 @@ public class UiHandler {
                 e.printStackTrace();
             }
         });
+    }
+
+    public void printToConsole(String consoleName, String printedValue) {
+        panel.writeToConsole(printedValue, consoleName);
+    }
+
+    public void clearConsole(String console) {
+        panel.clearConsole(console);
     }
 }

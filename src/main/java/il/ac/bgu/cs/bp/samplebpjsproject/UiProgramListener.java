@@ -44,12 +44,18 @@ public class UiProgramListener implements BProgramRunnerListener {
 
     @Override
     public void bthreadDone(BProgram bProgram, BThreadSyncSnapshot bThreadSyncSnapshot) {
-
+        String bthreadName = bThreadSyncSnapshot.getName();
+        int hotShowerIndex = bthreadName.indexOf("HotShower");
+        if(hotShowerIndex >= 0){
+            String toPrint = bthreadName.substring(0, hotShowerIndex) + " shower is filled!";
+            this.uiHandler.printToConsole("showerConsole", toPrint);
+        }
     }
 
     @Override
     public void eventSelected(BProgram bProgram, BEvent bEvent) {
-        switch (bEvent.getName()) {
+        String eventName = bEvent.getName();
+        switch (eventName) {
             case "coldEvent":
                 this.uiHandler.dripCold();
                 break;
@@ -65,6 +71,13 @@ public class UiProgramListener implements BProgramRunnerListener {
             case "requestCoffeeNescafeEvent":
                 this.uiHandler.pourCoffee("Nescafe");
                 break;
+            default:
+                int requestShowerIndex = eventName.indexOf("RequestShower");
+                if (requestShowerIndex >= 0) {
+                    this.uiHandler.clearConsole("showerConsole");
+                    String toPrint = "Filling shower for " + eventName.substring(0, requestShowerIndex);
+                    this.uiHandler.printToConsole("showerConsole", toPrint);
+                }
         }
     }
 }
