@@ -135,16 +135,16 @@ public class Panel {
 		new Labels(frame).buildLabel("People Actions :", 16, MichaelPos);
 		
 		int[] DanielPos = {240, 0, 73, 19};
-		new Labels(frame).buildLabel("Shower", 16, DanielPos);
+		new Labels(frame).buildLabel("Bath", 16, DanielPos);
 		
 		int[] RutiPos = {537,0,89,23};
-		new Labels(frame).buildLabel("coffee :)", 16, RutiPos);
+		new Labels(frame).buildLabel("Coffee", 16, RutiPos);
 		
-		int[] showerConPos = {256, 237, 88, 24};
-		new Labels(frame).buildLabel("Console:", 11, showerConPos);
+		int[] showerConPos = {256, 237, 140, 24};
+		new Labels(frame).buildLabel("Bath Description:", 14, showerConPos);
 		
-		int[] coffeeConPos = {531, 242, 99, 14};
-		new Labels(frame).buildLabel("Console:", 11, coffeeConPos);
+		int[] coffeeConPos = {531, 242, 140, 14};
+		new Labels(frame).buildLabel("Coffee Description:", 14, coffeeConPos);
 		
 		int[] DarkLabel = {557, 487, 57, 14};
 		new Labels(frame).buildLabel("Dark", 11, DarkLabel);

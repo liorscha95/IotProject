@@ -47,7 +47,7 @@ public class UiProgramListener implements BProgramRunnerListener {
         String bthreadName = bThreadSyncSnapshot.getName();
         int hotShowerIndex = bthreadName.indexOf("HotShower");
         if(hotShowerIndex >= 0){
-            String toPrint = bthreadName.substring(0, hotShowerIndex) + " shower is filled!";
+            String toPrint = bthreadName.substring(0, hotShowerIndex) + "'s bath is filled!";
             this.uiHandler.printToConsole("showerConsole", toPrint);
         }
     }
@@ -75,7 +75,7 @@ public class UiProgramListener implements BProgramRunnerListener {
                 int requestShowerIndex = eventName.indexOf("RequestShower");
                 if (requestShowerIndex >= 0) {
                     this.uiHandler.clearConsole("showerConsole");
-                    String toPrint = "Filling shower for " + eventName.substring(0, requestShowerIndex);
+                    String toPrint = "Filling bath for " + eventName.substring(0, requestShowerIndex);
                     this.uiHandler.printToConsole("showerConsole", toPrint);
                 }
         }

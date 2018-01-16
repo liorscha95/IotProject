@@ -39,7 +39,7 @@ public class UiHandler {
         Runnable printAtFinish = () -> {
             panel.writeToConsole(coffeeType + " Is Ready!", "coffeeConsole");
         };
-        invokeLedAndInformFinish(coffeeType + "Led", "finishCoffeeEvent", 5000, printAtFinish);
+        invokeLedAndInformFinish(coffeeType + "Led", "finishCoffeeEvent", 8000, printAtFinish);
     }
 
     private void invokeLedAndInformFinish(String ledType, String finishEvent, int millis, Runnable atFinishCallback) {

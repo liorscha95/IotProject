@@ -18,7 +18,6 @@ public class Console extends JTextArea {
 	
 	public void buildConsoleBox(int[] pos) {
 		this.setFont(new Font("Courier New", Font.PLAIN, 12));
-		this.setText(consoleName + " events to string\n");
 		this.setEditable(false);
 		this.setBounds(pos[0],pos[1],pos[2],pos[3]);
 		frame.getContentPane().add(this);
