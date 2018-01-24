@@ -13,7 +13,7 @@ import il.ac.bgu.cs.bp.bpjs.events.BEvent;
  *
  * @author michael
  */
-public class HelloWorld {
+public class MainClass {
 
     public static void main(String[] args) throws InterruptedException {
         // load resource file..
